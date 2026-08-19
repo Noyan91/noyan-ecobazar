@@ -52,7 +52,7 @@ export default function NewsletterPopup() {
             Subscribe to our newsletter and save <span className="font-semibold text-warning">20%</span>{' '}
             on your first order with a welcome discount code.
           </p>
-          <form onSubmit={submit} className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <form onSubmit={submit} noValidate className="mt-6 flex flex-col gap-3 sm:flex-row">
             <input
               type="email"
               required

@@ -151,6 +151,9 @@ export default function Shop() {
     <>
       <PageHeader trail={[{ label: 'Shop' }]} />
 
+      {/* The banner shows breadcrumbs only, so the page heading is for assistive tech */}
+      <h1 className="sr-only">Shop all organic products</h1>
+
       <div className="container-x flex flex-col gap-8 py-10 lg:flex-row lg:py-14">
         {/* Filters: inline on desktop, drawer on mobile */}
         <div className="hidden lg:block">

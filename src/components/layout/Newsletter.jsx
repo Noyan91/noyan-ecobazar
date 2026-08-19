@@ -29,7 +29,7 @@ export default function Newsletter() {
         </div>
 
         <div className="flex min-w-0 flex-wrap items-center gap-5">
-          <form onSubmit={submit} className="flex w-full max-w-md flex-wrap items-center gap-2">
+          <form onSubmit={submit} noValidate className="flex w-full max-w-md flex-wrap items-center gap-2">
             <input
               type="email"
               required

@@ -38,6 +38,9 @@ export default function Blog() {
     <>
       <PageHeader trail={[{ label: 'Blog' }]} />
 
+      {/* The banner shows breadcrumbs only, so the page heading is for assistive tech */}
+      <h1 className="sr-only">Ecobazar blog — food, recipes and healthy eating</h1>
+
       <div className="container-x flex flex-col gap-8 py-10 lg:flex-row lg:py-14">
         <BlogSidebar
           query={query}

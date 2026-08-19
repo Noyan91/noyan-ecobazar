@@ -102,7 +102,14 @@ export default function AccountSettings() {
               size={128}
               className="text-3xl"
             />
-            <input ref={fileRef} type="file" accept="image/*" onChange={pickAvatar} className="hidden" />
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              onChange={pickAvatar}
+              aria-label="Upload a profile photo"
+              className="hidden"
+            />
             <Button type="button" variant="outline" onClick={() => fileRef.current?.click()}>
               Choose Image
             </Button>
