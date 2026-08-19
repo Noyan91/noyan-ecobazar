@@ -91,9 +91,9 @@ export default function CartDrawer() {
                     type="button"
                     onClick={() => removeFromCart(line.id)}
                     aria-label={`Remove ${line.product.name}`}
-                    className="grid h-7 w-7 place-items-center rounded-full border border-gray-100 text-gray-400 transition-colors hover:border-danger hover:text-danger"
+                    className="grid h-9 w-9 place-items-center rounded-full border border-gray-100 text-gray-400 transition-colors hover:border-danger hover:text-danger"
                   >
-                    <X size={14} />
+                    <X size={15} />
                   </button>
                 </li>
               ))}

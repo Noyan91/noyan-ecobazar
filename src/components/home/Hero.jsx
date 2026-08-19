@@ -125,7 +125,7 @@ export default function Hero() {
             to="/shop?sale=true"
             className="group relative flex min-h-[180px] items-center overflow-hidden rounded-lg bg-ggray-50 p-6 lg:min-h-[210px]"
           >
-            <div className="relative z-10 max-w-[60%]">
+            <div className="relative z-10 max-w-full xs:max-w-[60%]">
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">
                 Summer Sale
               </p>
@@ -140,7 +140,7 @@ export default function Hero() {
               src="/images/products/hero-3.jpg"
               alt=""
               loading="lazy"
-              className="absolute -right-4 bottom-0 h-full w-1/2 object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-105"
+              className="absolute -right-4 bottom-0 hidden h-full w-1/2 object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-105 xs:block"
             />
           </Link>
 

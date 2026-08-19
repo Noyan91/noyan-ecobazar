@@ -89,11 +89,12 @@ export default function ProductSummary({ product, compact = false }) {
 
       <p className="mt-4 text-sm leading-7 text-gray-600">{product.description}</p>
 
+      {/* On phones the stepper and wishlist share a row, with a full-width buy button below */}
       <div className="mt-6 flex flex-wrap items-center gap-3">
-        <QuantityStepper value={quantity} onChange={setQuantity} max={20} />
+        <QuantityStepper value={quantity} onChange={setQuantity} max={20} className="order-1" />
         <Button
           size="lg"
-          className="flex-1 min-w-[180px]"
+          className="order-3 w-full min-w-[180px] sm:order-2 sm:w-auto sm:flex-1"
           disabled={!product.inStock}
           onClick={() => addToCart(product, quantity)}
         >
@@ -106,7 +107,7 @@ export default function ProductSummary({ product, compact = false }) {
           aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
           aria-pressed={wishlisted}
           className={cn(
-            'grid h-[51px] w-[51px] place-items-center rounded-full transition-colors',
+            'order-2 grid h-[51px] w-[51px] place-items-center rounded-full transition-colors sm:order-3',
             wishlisted
               ? 'bg-danger/10 text-danger'
               : 'bg-primary-surface text-primary hover:bg-primary hover:text-white',

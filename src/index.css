@@ -7,6 +7,9 @@
 @theme {
   --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
+  /* Extra breakpoint for large phones — between the default base and sm (640px) */
+  --breakpoint-xs: 26rem;
+
   /* Brand */
   --color-primary: #00b207;
   --color-primary-soft: #84d187;

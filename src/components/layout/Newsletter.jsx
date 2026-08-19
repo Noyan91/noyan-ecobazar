@@ -20,7 +20,7 @@ export default function Newsletter() {
   return (
     <section className="bg-gray-50">
       <div className="container-x grid gap-6 py-10 lg:grid-cols-[1fr_auto] lg:items-center lg:py-12">
-        <div className="max-w-md">
+        <div className="min-w-0 max-w-md">
           <h2 className="text-xl md:text-2xl">Subscribe to our Newsletter</h2>
           <p className="mt-2 text-sm leading-6 text-gray-600">
             Get weekly seasonal offers, recipes and first access to new produce. No spam, unsubscribe
@@ -28,8 +28,8 @@ export default function Newsletter() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-5">
-          <form onSubmit={submit} className="flex w-full max-w-md items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-5">
+          <form onSubmit={submit} className="flex w-full max-w-md flex-wrap items-center gap-2">
             <input
               type="email"
               required
@@ -37,11 +37,11 @@ export default function Newsletter() {
               onChange={(event) => setEmail(event.target.value)}
               placeholder="Your email address"
               aria-label="Email address"
-              className="h-[45px] flex-1 rounded-full border border-gray-100 bg-white px-5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary focus:outline-none"
+              className="h-[45px] w-full min-w-0 flex-1 rounded-full border border-gray-100 bg-white px-5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary focus:outline-none xs:w-auto"
             />
             <button
               type="submit"
-              className="h-[45px] shrink-0 rounded-full bg-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-primary-hard"
+              className="h-[45px] w-full shrink-0 rounded-full bg-primary px-6 text-sm font-semibold text-white transition-colors hover:bg-primary-hard xs:w-auto"
             >
               Subscribe
             </button>

@@ -90,9 +90,9 @@ export default function Wishlist() {
                         type="button"
                         onClick={() => removeFromWishlist(product.id)}
                         aria-label={`Remove ${product.name} from wishlist`}
-                        className="grid h-7 w-7 place-items-center rounded-full border border-gray-100 text-gray-400 transition-colors hover:border-danger hover:text-danger"
+                        className="grid h-9 w-9 place-items-center rounded-full border border-gray-100 text-gray-400 transition-colors hover:border-danger hover:text-danger"
                       >
-                        <X size={14} />
+                        <X size={15} />
                       </button>
                     </td>
                   </tr>

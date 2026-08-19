@@ -82,7 +82,7 @@ export default function ProductDetails() {
 
         {/* Tabs */}
         <div className="mt-12 border-b border-gray-50">
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="scrollbar-none flex justify-start gap-6 overflow-x-auto whitespace-nowrap sm:justify-center">
             {TABS.map((item) => (
               <button
                 key={item}

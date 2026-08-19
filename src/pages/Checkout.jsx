@@ -113,7 +113,7 @@ export default function Checkout() {
       <PageHeader trail={[{ label: 'Shopping Cart', to: '/cart' }, { label: 'Checkout' }]} />
 
       <form onSubmit={submit} className="container-x grid gap-8 py-10 lg:grid-cols-[1.5fr_1fr] lg:py-14" noValidate>
-        <div>
+        <div className="min-w-0">
           <h1 className="text-2xl md:text-[28px]">Billing Information</h1>
 
           <div className="mt-6 grid gap-5 sm:grid-cols-3">
@@ -204,7 +204,7 @@ export default function Checkout() {
           </label>
         </div>
 
-        <aside className="h-fit rounded-lg border border-gray-50 p-6 lg:sticky lg:top-32">
+        <aside className="h-fit min-w-0 rounded-lg border border-gray-50 p-5 sm:p-6 lg:sticky lg:top-32">
           <h2 className="text-lg text-gray-900">Order Summary</h2>
 
           <ul className="mt-5 flex flex-col gap-4">

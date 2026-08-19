@@ -118,7 +118,8 @@ export default function ProductCard({ product, variant = 'grid', className }) {
         </div>
       </div>
 
-      <div className="flex flex-1 items-end justify-between gap-2 border-t border-gray-50 p-3">
+      {/* Stacks on small phones so the name and price are not squeezed by the button */}
+      <div className="flex flex-1 flex-col gap-2 border-t border-gray-50 p-3 xs:flex-row xs:items-end xs:justify-between">
         <div className="min-w-0">
           <h3 className="line-clamp-2 text-sm text-gray-900">
             <Link to={`/product/${product.slug}`} className="transition-colors hover:text-primary">
@@ -139,7 +140,7 @@ export default function ProductCard({ product, variant = 'grid', className }) {
           disabled={!product.inStock}
           aria-label={`Add ${product.name} to cart`}
           className={cn(
-            'grid h-10 w-10 shrink-0 place-items-center rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-40',
+            'grid h-10 w-10 shrink-0 place-items-center self-end rounded-full transition-colors disabled:cursor-not-allowed disabled:opacity-40',
             inCart
               ? 'bg-primary text-white'
               : 'bg-gray-50 text-gray-900 hover:bg-primary hover:text-white',
