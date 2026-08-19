@@ -42,7 +42,7 @@ export default function Contact() {
         <aside className="flex flex-col divide-y divide-gray-50 rounded-lg border border-gray-50 p-6 text-center">
           {[
             { Icon: MapPin, lines: [storeInfo.addressLong] },
-            { Icon: Mail, lines: [storeInfo.email, storeInfo.emailAlt] },
+            { Icon: Mail, lines: [storeInfo.email] },
             { Icon: PhoneCall, lines: [storeInfo.phone, storeInfo.phoneAlt] },
           ].map(({ Icon, lines }, index) => (
             <div key={index} className="flex flex-col items-center gap-3 py-6 first:pt-0 last:pb-0">

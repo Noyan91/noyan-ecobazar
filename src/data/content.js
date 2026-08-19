@@ -190,8 +190,7 @@ export const storeInfo = {
   addressLong: '2715 Ash Dr. San Jose, South Dakota 83475',
   phone: '(219) 555-0114',
   phoneAlt: '(164) 333-0487',
-  email: 'proxy@gmail.com',
-  emailAlt: 'help.proxy@gmail.com',
+  email: 'hello@codersnoyan.com',
 }
 
 export const features = [

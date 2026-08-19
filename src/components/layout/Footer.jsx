@@ -39,7 +39,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="container-x grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-[1.4fr_repeat(4,1fr)] lg:py-16">
-        <div className="max-w-xs">
+        <div className="max-w-sm">
           <Logo tone="light" />
           <p className="mt-4 text-sm leading-7 text-gray-400">
             Organic groceries from growers we know by name — picked at peak ripeness and delivered
@@ -96,7 +96,7 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="container-x flex flex-col items-center justify-between gap-4 py-5 text-sm text-gray-500 md:flex-row">
-          <p>Ecobazar eCommerce © {new Date().getFullYear()}. All Rights Reserved</p>
+          <p>Ecobazar eCommerce © {new Date().getFullYear()}. All Rights Reserved Noyan</p>
           <ul className="flex flex-wrap items-center gap-2">
             {PAYMENTS.map((method) => (
               <li
