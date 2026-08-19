@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Eye, Heart, ShoppingBag } from 'lucide-react'
 import { useStore } from '../../context/StoreContext'
-import { cn, formatPrice } from '../../lib/utils'
+import { cn } from '../../lib/utils'
 import Rating from '../ui/Rating'
 
 /**
@@ -9,7 +9,7 @@ import Rating from '../ui/Rating'
  * `variant="compact"` renders the small horizontal row used in the deal rails.
  */
 export default function ProductCard({ product, variant = 'grid', className }) {
-  const { addToCart, toggleWishlist, isWishlisted, setQuickView, cart } = useStore()
+  const { addToCart, toggleWishlist, isWishlisted, setQuickView, cart, price } = useStore()
   const wishlisted = isWishlisted(product.id)
   const inCart = cart.some((line) => line.id === product.id)
 
@@ -39,9 +39,9 @@ export default function ProductCard({ product, variant = 'grid', className }) {
             </Link>
           </h3>
           <p className="mt-1 flex items-center gap-2 text-sm">
-            <span className="font-medium text-gray-900">{formatPrice(product.price)}</span>
+            <span className="font-medium text-gray-900">{price(product.price)}</span>
             {product.oldPrice && (
-              <span className="text-xs text-gray-400 line-through">{formatPrice(product.oldPrice)}</span>
+              <span className="text-xs text-gray-400 line-through">{price(product.oldPrice)}</span>
             )}
           </p>
           <Rating value={product.rating} className="mt-1" size={12} />
@@ -127,9 +127,9 @@ export default function ProductCard({ product, variant = 'grid', className }) {
             </Link>
           </h3>
           <p className="mt-1 flex flex-wrap items-center gap-2">
-            <span className="font-medium text-gray-900">{formatPrice(product.price)}</span>
+            <span className="font-medium text-gray-900">{price(product.price)}</span>
             {product.oldPrice && (
-              <span className="text-sm text-gray-400 line-through">{formatPrice(product.oldPrice)}</span>
+              <span className="text-sm text-gray-400 line-through">{price(product.oldPrice)}</span>
             )}
           </p>
           <Rating value={product.rating} className="mt-1.5" />

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Heart, ShoppingBag } from 'lucide-react'
 import { useStore } from '../../context/StoreContext'
 import { categoryName } from '../../data/categories'
-import { cn, formatPrice, slugify } from '../../lib/utils'
+import { cn, slugify } from '../../lib/utils'
 import Button from '../ui/Button'
 import QuantityStepper from '../ui/QuantityStepper'
 import Rating from '../ui/Rating'
@@ -11,7 +11,7 @@ import { Facebook, Instagram, Twitter } from '../ui/SocialIcons'
 
 /** Buy-box shared by the product page and the quick-view dialog. */
 export default function ProductSummary({ product, compact = false }) {
-  const { addToCart, toggleWishlist, isWishlisted } = useStore()
+  const { addToCart, toggleWishlist, isWishlisted, price } = useStore()
   const [quantity, setQuantity] = useState(1)
   const wishlisted = isWishlisted(product.id)
 
@@ -47,9 +47,9 @@ export default function ProductSummary({ product, compact = false }) {
 
       <div className="mt-4 flex flex-wrap items-center gap-3">
         {product.oldPrice && (
-          <span className="text-lg text-gray-400 line-through">{formatPrice(product.oldPrice)}</span>
+          <span className="text-lg text-gray-400 line-through">{price(product.oldPrice)}</span>
         )}
-        <span className="text-2xl font-semibold text-primary">{formatPrice(product.price)}</span>
+        <span className="text-2xl font-semibold text-primary">{price(product.price)}</span>
         {product.discount > 0 && (
           <span className="rounded bg-danger/10 px-2 py-1 text-xs font-medium text-danger">
             {product.discount}% Off

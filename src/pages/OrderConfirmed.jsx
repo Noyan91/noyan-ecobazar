@@ -4,12 +4,11 @@ import { CheckCircle2 } from 'lucide-react'
 import Button from '../components/ui/Button'
 import PageHeader from '../components/ui/PageHeader'
 import { useStore } from '../context/StoreContext'
-import { formatPrice } from '../lib/utils'
 import { products } from '../data/products'
 
 export default function OrderConfirmed() {
   const { state } = useLocation()
-  const { orders } = useStore()
+  const { orders, price } = useStore()
   const order = orders.find((item) => item.id === state?.orderId) ?? orders[0]
 
   useEffect(() => {
@@ -50,7 +49,7 @@ export default function OrderConfirmed() {
                   {line.product.name} <span className="text-gray-400">×{line.quantity}</span>
                 </span>
                 <span className="text-sm font-medium text-gray-900">
-                  {formatPrice(line.product.price * line.quantity)}
+                  {price(line.product.price * line.quantity)}
                 </span>
               </li>
             ))}
@@ -59,7 +58,7 @@ export default function OrderConfirmed() {
           <div className="mt-4 flex justify-between border-t border-gray-50 pt-4 text-left">
             <span className="text-gray-900">Total paid</span>
             <span className="text-lg font-semibold text-gray-900">
-              {formatPrice(subtotal * (1 - (order.discount ?? 0) / 100) + (order.shipping ?? 0))}
+              {price(subtotal * (1 - (order.discount ?? 0) / 100) + (order.shipping ?? 0))}
             </span>
           </div>
 

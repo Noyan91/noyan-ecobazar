@@ -5,10 +5,10 @@ import { Facebook, Instagram, Twitter } from '../components/ui/SocialIcons'
 import Button from '../components/ui/Button'
 import PageHeader from '../components/ui/PageHeader'
 import { useStore } from '../context/StoreContext'
-import { cn, formatPrice } from '../lib/utils'
+import { cn } from '../lib/utils'
 
 export default function Wishlist() {
-  const { wishlistProducts, removeFromWishlist, addToCart } = useStore()
+  const { wishlistProducts, removeFromWishlist, addToCart, price } = useStore()
 
   useEffect(() => {
     document.title = 'My Wishlist — Ecobazar'
@@ -65,10 +65,10 @@ export default function Wishlist() {
                       </div>
                     </td>
                     <td className="sm:px-5 sm:py-4">
-                      <span className="text-sm font-medium text-gray-900">{formatPrice(product.price)}</span>
+                      <span className="text-sm font-medium text-gray-900">{price(product.price)}</span>
                       {product.oldPrice && (
                         <span className="ml-2 text-xs text-gray-400 line-through">
-                          {formatPrice(product.oldPrice)}
+                          {price(product.oldPrice)}
                         </span>
                       )}
                     </td>

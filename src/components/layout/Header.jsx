@@ -13,7 +13,9 @@ import {
 import { useStore } from '../../context/StoreContext'
 import { categories } from '../../data/categories'
 import { storeInfo } from '../../data/content'
-import { cn, formatPrice } from '../../lib/utils'
+import { CURRENCIES, LANGUAGES } from '../../data/settings'
+import { cn } from '../../lib/utils'
+import SelectMenu from '../ui/SelectMenu'
 import Logo from './Logo'
 import SearchBar from './SearchBar'
 
@@ -107,7 +109,7 @@ function DesktopNavItem({ item }) {
 
 function MobileMenu({ open, onClose }) {
   const [expanded, setExpanded] = useState(null)
-  const { user } = useStore()
+  const { user, language, setLanguage, currency, setCurrency } = useStore()
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -205,6 +207,27 @@ function MobileMenu({ open, onClose }) {
               <PhoneCall size={18} /> {storeInfo.phone}
             </a>
           </div>
+
+          {/* The utility bar is desktop-only, so the pickers live here on phones */}
+          <div className="mt-6 flex items-center gap-6 border-t border-gray-50 pt-5">
+            <SelectMenu
+              label="Language"
+              tone="dark"
+              align="left"
+              options={LANGUAGES}
+              value={language}
+              onChange={setLanguage}
+              renderTrigger={(item) => item.label}
+            />
+            <SelectMenu
+              label="Currency"
+              tone="dark"
+              align="left"
+              options={CURRENCIES}
+              value={currency}
+              onChange={setCurrency}
+            />
+          </div>
         </div>
       </nav>
     </div>
@@ -212,7 +235,20 @@ function MobileMenu({ open, onClose }) {
 }
 
 export default function Header() {
-  const { cartCount, subtotal, wishlist, user, setCartOpen, mobileNavOpen, setMobileNavOpen } = useStore()
+  const {
+    cartCount,
+    subtotal,
+    wishlist,
+    user,
+    setCartOpen,
+    mobileNavOpen,
+    setMobileNavOpen,
+    language,
+    setLanguage,
+    currency,
+    setCurrency,
+    price,
+  } = useStore()
   const { pathname } = useLocation()
 
   useEffect(() => {
@@ -229,8 +265,19 @@ export default function Header() {
             Store Location: {storeInfo.address}
           </p>
           <div className="flex items-center gap-4 text-white/80">
-            <span className="flex items-center gap-1">Eng <ChevronDown size={12} /></span>
-            <span className="flex items-center gap-1">USD <ChevronDown size={12} /></span>
+            <SelectMenu
+              label="Language"
+              options={LANGUAGES}
+              value={language}
+              onChange={setLanguage}
+              renderTrigger={(item) => item.short}
+            />
+            <SelectMenu
+              label="Currency"
+              options={CURRENCIES}
+              value={currency}
+              onChange={setCurrency}
+            />
             <span className="text-white/30">|</span>
             {user ? (
               <Link to="/account" className="transition-colors hover:text-primary">
@@ -300,7 +347,7 @@ export default function Header() {
             </span>
             <span className="hidden leading-tight sm:block">
               <span className="block text-xs text-gray-600">Shopping cart:</span>
-              <span className="block text-sm font-semibold text-gray-900">{formatPrice(subtotal)}</span>
+              <span className="block text-sm font-semibold text-gray-900">{price(subtotal)}</span>
             </span>
           </button>
 

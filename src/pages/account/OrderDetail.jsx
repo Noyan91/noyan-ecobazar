@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Check } from 'lucide-react'
 import { useStore } from '../../context/StoreContext'
-import { cn, formatPrice } from '../../lib/utils'
+import { cn } from '../../lib/utils'
 import { orderTotals } from './OrdersTable'
 
 const STAGES = ['Order received', 'Processing', 'On the way', 'Delivered']
@@ -15,7 +15,7 @@ const stageIndex = (status) => {
 
 export default function OrderDetail() {
   const { id } = useParams()
-  const { orders, user } = useStore()
+  const { orders, user, price } = useStore()
   const order = orders.find((item) => item.id === `#${id}`)
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export default function OrderDetail() {
           </p>
           <p className="mt-3 text-xs uppercase tracking-wide text-gray-400">Delivery</p>
           <p className="text-sm text-gray-600">
-            {order.shipping === 0 ? 'Free next-day delivery' : formatPrice(order.shipping)}
+            {order.shipping === 0 ? 'Free next-day delivery' : price(order.shipping)}
           </p>
         </div>
 
@@ -99,7 +99,7 @@ export default function OrderDetail() {
           <dl className="mt-3 flex flex-col gap-2 text-sm">
             <div className="flex justify-between">
               <dt className="text-gray-600">Subtotal:</dt>
-              <dd className="text-gray-900">{formatPrice(subtotal)}</dd>
+              <dd className="text-gray-900">{price(subtotal)}</dd>
             </div>
             <div className="flex justify-between">
               <dt className="text-gray-600">Discount:</dt>
@@ -108,12 +108,12 @@ export default function OrderDetail() {
             <div className="flex justify-between border-b border-gray-50 pb-2">
               <dt className="text-gray-600">Shipping:</dt>
               <dd className="text-gray-900">
-                {order.shipping === 0 ? 'Free' : formatPrice(order.shipping)}
+                {order.shipping === 0 ? 'Free' : price(order.shipping)}
               </dd>
             </div>
             <div className="flex justify-between pt-1">
               <dt className="font-medium text-gray-900">Total</dt>
-              <dd className="text-lg font-semibold text-primary">{formatPrice(total)}</dd>
+              <dd className="text-lg font-semibold text-primary">{price(total)}</dd>
             </div>
           </dl>
         </div>
@@ -195,9 +195,9 @@ export default function OrderDetail() {
                     <span className="text-gray-900 hover:text-primary">{line.product.name}</span>
                   </Link>
                 </td>
-                <td className="px-6 py-4 text-gray-600">{formatPrice(line.product.price)}</td>
+                <td className="px-6 py-4 text-gray-600">{price(line.product.price)}</td>
                 <td className="px-6 py-4 text-gray-600">×{line.quantity}</td>
-                <td className="px-6 py-4 font-medium text-gray-900">{formatPrice(line.subtotal)}</td>
+                <td className="px-6 py-4 font-medium text-gray-900">{price(line.subtotal)}</td>
               </tr>
             ))}
           </tbody>
@@ -206,7 +206,7 @@ export default function OrderDetail() {
 
       {discount > 0 && (
         <p className="px-6 py-4 text-sm text-gray-600">
-          Discount applied: <span className="font-medium text-primary">−{formatPrice(discount)}</span>
+          Discount applied: <span className="font-medium text-primary">−{price(discount)}</span>
         </p>
       )}
     </section>

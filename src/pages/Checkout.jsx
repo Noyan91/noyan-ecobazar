@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import PageHeader from '../components/ui/PageHeader'
 import { useStore } from '../context/StoreContext'
-import { cn, formatPrice } from '../lib/utils'
+import { cn } from '../lib/utils'
 
 const COUNTRIES = ['United States', 'United Kingdom', 'Bangladesh', 'Kenya', 'Canada', 'Australia']
 const STATES = ['New Mexico', 'California', 'Illinois', 'Texas', 'Florida', 'New York']
@@ -34,7 +34,7 @@ function Field({ label, name, type = 'text', required, value, onChange, error, p
 }
 
 export default function Checkout() {
-  const { cartLines, subtotal, discount, shipping, total, coupon, placeOrder, user } = useStore()
+  const { cartLines, subtotal, discount, shipping, total, coupon, placeOrder, user, price } = useStore()
   const navigate = useNavigate()
   const [payment, setPayment] = useState(PAYMENTS[0])
   const [errors, setErrors] = useState({})
@@ -219,7 +219,7 @@ export default function Checkout() {
                 <span className="min-w-0 flex-1 truncate text-sm text-gray-700">
                   {line.product.name} <span className="text-gray-400">×{line.quantity}</span>
                 </span>
-                <span className="text-sm font-medium text-gray-900">{formatPrice(line.subtotal)}</span>
+                <span className="text-sm font-medium text-gray-900">{price(line.subtotal)}</span>
               </li>
             ))}
           </ul>
@@ -227,23 +227,23 @@ export default function Checkout() {
           <dl className="mt-6 flex flex-col gap-3 border-t border-gray-50 pt-5 text-sm">
             <div className="flex justify-between">
               <dt className="text-gray-600">Subtotal:</dt>
-              <dd className="font-medium text-gray-900">{formatPrice(subtotal)}</dd>
+              <dd className="font-medium text-gray-900">{price(subtotal)}</dd>
             </div>
             {coupon && (
               <div className="flex justify-between">
                 <dt className="text-gray-600">Discount ({coupon.code}):</dt>
-                <dd className="font-medium text-primary">−{formatPrice(discount)}</dd>
+                <dd className="font-medium text-primary">−{price(discount)}</dd>
               </div>
             )}
             <div className="flex justify-between border-b border-gray-50 pb-3">
               <dt className="text-gray-600">Shipping:</dt>
               <dd className="font-medium text-gray-900">
-                {shipping === 0 ? 'Free' : formatPrice(shipping)}
+                {shipping === 0 ? 'Free' : price(shipping)}
               </dd>
             </div>
             <div className="flex justify-between">
               <dt className="text-gray-900">Total:</dt>
-              <dd className="text-lg font-semibold text-gray-900">{formatPrice(total)}</dd>
+              <dd className="text-lg font-semibold text-gray-900">{price(total)}</dd>
             </div>
           </dl>
 

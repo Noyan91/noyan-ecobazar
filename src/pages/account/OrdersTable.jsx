@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { products } from '../../data/products'
-import { cn, formatPrice } from '../../lib/utils'
+import { useStore } from '../../context/StoreContext'
+import { cn } from '../../lib/utils'
 
 export const STATUS_STYLES = {
   Processing: 'text-warning',
@@ -24,6 +25,7 @@ export function orderTotals(order) {
 }
 
 export default function OrdersTable({ orders, limit }) {
+  const { price } = useStore()
   const rows = limit ? orders.slice(0, limit) : orders
 
   if (rows.length === 0) {
@@ -54,7 +56,7 @@ export default function OrdersTable({ orders, limit }) {
                 <td className="px-6 py-4 font-medium text-gray-900">{order.id}</td>
                 <td className="px-6 py-4 text-gray-600">{order.date}</td>
                 <td className="px-6 py-4 text-gray-600">
-                  {formatPrice(total)}{' '}
+                  {price(total)}{' '}
                   <span className="text-gray-400">
                     ({count} Product{count === 1 ? '' : 's'})
                   </span>

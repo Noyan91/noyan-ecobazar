@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useState } from 'react'
 import { products } from '../data/products'
-import { readStorage, writeStorage } from '../lib/utils'
+import { DEFAULT_CURRENCY, DEFAULT_LANGUAGE, findCurrency, findLanguage } from '../data/settings'
+import { formatPrice, readStorage, writeStorage } from '../lib/utils'
 
 /**
  * Single source of truth for cart, wishlist, orders and the demo account.
@@ -15,6 +16,8 @@ const KEYS = {
   orders: 'ecobazar.orders',
   user: 'ecobazar.user',
   coupon: 'ecobazar.coupon',
+  language: 'ecobazar.language',
+  currency: 'ecobazar.currency',
 }
 
 export const COUPONS = {
@@ -165,6 +168,19 @@ export function StoreProvider({ children }) {
   const [cartOpen, setCartOpen] = useState(false)
   const [quickView, setQuickView] = useState(null)
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  const [language, setLanguageState] = useState(() =>
+    findLanguage(readStorage(KEYS.language, DEFAULT_LANGUAGE.code)),
+  )
+  const [currency, setCurrencyState] = useState(() =>
+    findCurrency(readStorage(KEYS.currency, DEFAULT_CURRENCY.code)),
+  )
+
+  useEffect(() => {
+    writeStorage(KEYS.language, language.code)
+    document.documentElement.lang = language.code
+  }, [language])
+
+  useEffect(() => writeStorage(KEYS.currency, currency.code), [currency])
 
   useEffect(() => writeStorage(KEYS.cart, state.cart), [state.cart])
   useEffect(() => writeStorage(KEYS.wishlist, state.wishlist), [state.wishlist])
@@ -295,6 +311,22 @@ export function StoreProvider({ children }) {
       mobileNavOpen,
       setMobileNavOpen,
       toast,
+      language,
+      currency,
+      /** Formats a USD amount in the shopper's chosen currency. */
+      price: (amount) => formatPrice(amount, currency),
+      setLanguage: (next) => {
+        setLanguageState(next)
+        if (next.code === DEFAULT_LANGUAGE.code) {
+          toast('Language set to English')
+        } else {
+          toast(`${next.label} selected — this demo ships English copy only`)
+        }
+      },
+      setCurrency: (next) => {
+        setCurrencyState(next)
+        toast(`Prices now shown in ${next.code}`)
+      },
       addToCart,
       setQuantity: (id, quantity) => dispatch({ type: 'cart/setQuantity', id, quantity }),
       removeFromCart: (id) => dispatch({ type: 'cart/remove', id }),
@@ -333,6 +365,8 @@ export function StoreProvider({ children }) {
     quickView,
     mobileNavOpen,
     toast,
+    language,
+    currency,
   ])
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>

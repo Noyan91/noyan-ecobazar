@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search } from 'lucide-react'
+import { useStore } from '../../context/StoreContext'
 import { products } from '../../data/products'
-import { formatPrice } from '../../lib/utils'
 
 /** Header search with live suggestions; Enter goes to the shop results page. */
 export default function SearchBar({ onNavigate }) {
@@ -10,6 +10,7 @@ export default function SearchBar({ onNavigate }) {
   const [open, setOpen] = useState(false)
   const containerRef = useRef(null)
   const navigate = useNavigate()
+  const { price } = useStore()
 
   const matches = useMemo(() => {
     const term = query.trim().toLowerCase()
@@ -95,7 +96,7 @@ export default function SearchBar({ onNavigate }) {
                   />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate text-sm text-gray-900">{product.name}</span>
-                    <span className="block text-xs text-gray-500">{formatPrice(product.price)}</span>
+                    <span className="block text-xs text-gray-500">{price(product.price)}</span>
                   </span>
                 </button>
               </li>

@@ -1,8 +1,19 @@
 /** Joins class names, dropping falsy values. */
 export const cn = (...classes) => classes.filter(Boolean).join(' ')
 
-export const formatPrice = (value) =>
-  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value ?? 0)
+/**
+ * Formats a USD amount in the shopper's chosen currency.
+ * `currency` is an entry from data/settings.js; it defaults to USD.
+ */
+export const formatPrice = (value, currency) => {
+  const { code = 'USD', rate = 1 } = currency ?? {}
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: code,
+    currencyDisplay: 'narrowSymbol',
+    maximumFractionDigits: 2,
+  }).format((value ?? 0) * rate)
+}
 
 /** Reads JSON from localStorage, tolerating private mode and corrupt values. */
 export function readStorage(key, fallback) {

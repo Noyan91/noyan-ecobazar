@@ -7,7 +7,7 @@ import Pagination from '../components/ui/Pagination'
 import PageHeader from '../components/ui/PageHeader'
 import { categoryName } from '../data/categories'
 import { priceBounds, products } from '../data/products'
-import { cn, formatPrice, slugify } from '../lib/utils'
+import { cn, slugify } from '../lib/utils'
 import Rating from '../components/ui/Rating'
 import Button from '../components/ui/Button'
 import { useStore } from '../context/StoreContext'
@@ -57,7 +57,7 @@ function useFilters() {
 
 /** Row layout used when the list view is selected. */
 function ProductRow({ product }) {
-  const { addToCart } = useStore()
+  const { addToCart, price } = useStore()
   return (
     <article className="group flex flex-col gap-4 rounded-lg border border-gray-100 p-4 transition-colors hover:border-primary sm:flex-row sm:items-center">
       <Link to={`/product/${product.slug}`} className="h-40 w-full shrink-0 overflow-hidden rounded-md bg-gray-50 sm:h-32 sm:w-32">
@@ -75,9 +75,9 @@ function ProductRow({ product }) {
           </Link>
         </h3>
         <p className="mt-1 flex items-center gap-2">
-          <span className="font-semibold text-gray-900">{formatPrice(product.price)}</span>
+          <span className="font-semibold text-gray-900">{price(product.price)}</span>
           {product.oldPrice && (
-            <span className="text-sm text-gray-400 line-through">{formatPrice(product.oldPrice)}</span>
+            <span className="text-sm text-gray-400 line-through">{price(product.oldPrice)}</span>
           )}
         </p>
         <Rating value={product.rating} count={product.reviews} showCount className="mt-2" />
@@ -91,6 +91,7 @@ function ProductRow({ product }) {
 }
 
 export default function Shop() {
+  const { price } = useStore()
   const [filters, update] = useFilters()
   const [view, setView] = useState('grid')
   const [filtersOpen, setFiltersOpen] = useState(false)
@@ -141,7 +142,7 @@ export default function Shop() {
     filters.sale && { label: 'On sale', clear: { sale: null } },
     filters.rating && { label: `${filters.rating}.0 & up`, clear: { rating: null } },
     (filters.minPrice > 0 || filters.maxPrice < priceBounds.max) && {
-      label: `${formatPrice(filters.minPrice)} – ${formatPrice(filters.maxPrice)}`,
+      label: `${price(filters.minPrice)} – ${price(filters.maxPrice)}`,
       clear: { minPrice: 0, maxPrice: priceBounds.max },
     },
   ].filter(Boolean)

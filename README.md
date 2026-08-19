@@ -52,8 +52,13 @@ Node 18+ is required.
 - **Checkout** — required-field validation with inline errors, then a real order is created.
 - **Account** — sign in (any valid email + 6-character password), dashboard, order history,
   order detail with a delivery progress tracker, editable profile/billing/password.
-- **Persistence** — cart, wishlist, orders and the signed-in user are stored in
-  `localStorage`, so a refresh keeps everything.
+- **Currency switcher** — the `USD` picker in the top bar reprices the entire site
+  (cards, cart, checkout, order history) using the fixed demo rates in
+  `src/data/settings.js`; there is no live FX feed in this build.
+- **Language switcher** — remembers the choice and sets `<html lang>`; the copy itself
+  ships in English only, so picking another language says so rather than pretending.
+- **Persistence** — cart, wishlist, orders, currency, language and the signed-in user are
+  stored in `localStorage`, so a refresh keeps everything.
 - **Quick view**, newsletter popup (once per visitor), toasts, back-to-top, mobile menu.
 
 ### Responsive

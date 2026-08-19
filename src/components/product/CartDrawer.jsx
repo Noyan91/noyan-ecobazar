@@ -3,12 +3,11 @@ import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { ShoppingBag, X } from 'lucide-react'
 import { useStore } from '../../context/StoreContext'
-import { formatPrice } from '../../lib/utils'
 import Button from '../ui/Button'
 
 /** Slide-over basket opened from the header cart button. */
 export default function CartDrawer() {
-  const { cartOpen, setCartOpen, cartLines, cartCount, subtotal, removeFromCart } = useStore()
+  const { cartOpen, setCartOpen, cartLines, cartCount, subtotal, removeFromCart, price } = useStore()
 
   useEffect(() => {
     if (!cartOpen) return undefined
@@ -84,7 +83,7 @@ export default function CartDrawer() {
                       {line.product.name}
                     </Link>
                     <p className="mt-1 text-sm text-gray-500">
-                      {line.quantity} × <span className="font-medium text-gray-900">{formatPrice(line.product.price)}</span>
+                      {line.quantity} × <span className="font-medium text-gray-900">{price(line.product.price)}</span>
                     </p>
                   </div>
                   <button
@@ -105,7 +104,7 @@ export default function CartDrawer() {
           <footer className="border-t border-gray-50 px-6 py-5">
             <div className="mb-4 flex items-center justify-between">
               <span className="text-gray-600">{cartCount} Product{cartCount === 1 ? '' : 's'}</span>
-              <span className="text-lg font-semibold text-gray-900">{formatPrice(subtotal)}</span>
+              <span className="text-lg font-semibold text-gray-900">{price(subtotal)}</span>
             </div>
             <div className="flex flex-col gap-2">
               <Button to="/checkout" size="lg" full onClick={() => setCartOpen(false)}>

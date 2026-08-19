@@ -6,7 +6,6 @@ import PageHeader from '../components/ui/PageHeader'
 import QuantityStepper from '../components/ui/QuantityStepper'
 import { useStore } from '../context/StoreContext'
 import { SHIPPING_FREE_THRESHOLD } from '../context/StoreContext'
-import { formatPrice } from '../lib/utils'
 
 export default function Cart() {
   const {
@@ -20,8 +19,7 @@ export default function Cart() {
     removeFromCart,
     applyCoupon,
     clearCoupon,
-    toast,
-  } = useStore()
+    toast, price } = useStore()
   const [code, setCode] = useState('')
 
   useEffect(() => {
@@ -86,7 +84,7 @@ export default function Cart() {
                           </div>
                         </td>
                         <td className="text-sm text-gray-600 sm:px-5 sm:py-4">
-                          {formatPrice(line.product.price)}
+                          {price(line.product.price)}
                         </td>
                         <td className="sm:px-5 sm:py-4">
                           <QuantityStepper
@@ -96,7 +94,7 @@ export default function Cart() {
                           />
                         </td>
                         <td className="text-sm font-semibold text-gray-900 sm:px-5 sm:py-4">
-                          {formatPrice(line.subtotal)}
+                          {price(line.subtotal)}
                         </td>
                         <td className="ml-auto sm:px-5 sm:py-4">
                           <button
@@ -155,7 +153,7 @@ export default function Cart() {
               <dl className="mt-5 flex flex-col gap-3 text-sm">
                 <div className="flex justify-between border-b border-gray-50 pb-3">
                   <dt className="text-gray-600">Subtotal:</dt>
-                  <dd className="font-medium text-gray-900">{formatPrice(subtotal)}</dd>
+                  <dd className="font-medium text-gray-900">{price(subtotal)}</dd>
                 </div>
                 {coupon && (
                   <div className="flex items-center justify-between border-b border-gray-50 pb-3">
@@ -170,24 +168,24 @@ export default function Cart() {
                         <X size={13} />
                       </button>
                     </dt>
-                    <dd className="font-medium text-primary">−{formatPrice(discount)}</dd>
+                    <dd className="font-medium text-primary">−{price(discount)}</dd>
                   </div>
                 )}
                 <div className="flex justify-between border-b border-gray-50 pb-3">
                   <dt className="text-gray-600">Shipping:</dt>
                   <dd className="font-medium text-gray-900">
-                    {shipping === 0 ? 'Free' : formatPrice(shipping)}
+                    {shipping === 0 ? 'Free' : price(shipping)}
                   </dd>
                 </div>
                 <div className="flex justify-between pt-1">
                   <dt className="text-gray-900">Total:</dt>
-                  <dd className="text-lg font-semibold text-gray-900">{formatPrice(total)}</dd>
+                  <dd className="text-lg font-semibold text-gray-900">{price(total)}</dd>
                 </div>
               </dl>
 
               {shipping > 0 && (
                 <p className="mt-3 rounded-md bg-primary-surface px-3 py-2 text-xs text-primary-hard">
-                  Add {formatPrice(SHIPPING_FREE_THRESHOLD - (subtotal - discount))} more to unlock free
+                  Add {price(SHIPPING_FREE_THRESHOLD - (subtotal - discount))} more to unlock free
                   shipping.
                 </p>
               )}

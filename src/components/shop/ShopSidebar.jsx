@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Star } from 'lucide-react'
 import { categories, popularTags } from '../../data/categories'
 import { productCountByCategory, saleProducts } from '../../data/products'
-import { cn, formatPrice, slugify } from '../../lib/utils'
+import { useStore } from '../../context/StoreContext'
+import { cn, slugify } from '../../lib/utils'
 import Rating from '../ui/Rating'
 
 function Panel({ title, children }) {
@@ -16,6 +17,7 @@ function Panel({ title, children }) {
 
 /** All shop filters. `filters` / `update` come from the Shop page URL state. */
 export default function ShopSidebar({ filters, update, priceMax }) {
+  const { price } = useStore()
   const ratings = [5, 4, 3, 2, 1]
 
   return (
@@ -103,8 +105,8 @@ export default function ShopSidebar({ filters, update, priceMax }) {
           />
         </div>
         <p className="mt-4 text-sm text-gray-600">
-          Price: <span className="font-medium text-gray-900">{formatPrice(filters.minPrice)}</span> —{' '}
-          <span className="font-medium text-gray-900">{formatPrice(filters.maxPrice)}</span>
+          Price: <span className="font-medium text-gray-900">{price(filters.minPrice)}</span> —{' '}
+          <span className="font-medium text-gray-900">{price(filters.maxPrice)}</span>
         </p>
       </Panel>
 
@@ -191,9 +193,9 @@ export default function ShopSidebar({ filters, update, priceMax }) {
                     {product.name}
                   </span>
                   <span className="mt-1 flex items-center gap-2 text-sm">
-                    <span className="font-medium text-gray-900">{formatPrice(product.price)}</span>
+                    <span className="font-medium text-gray-900">{price(product.price)}</span>
                     <span className="text-xs text-gray-400 line-through">
-                      {formatPrice(product.oldPrice)}
+                      {price(product.oldPrice)}
                     </span>
                   </span>
                   <Rating value={product.rating} size={12} className="mt-1" />
